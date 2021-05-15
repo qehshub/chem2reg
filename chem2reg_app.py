@@ -41,7 +41,7 @@ class Query:
             return leg_arr
 
 st.title('化学品关联法规查询')
-warehouse=sqlite3.connect(r'cisdatabase.db') #/app/chem2reg/
+warehouse=sqlite3.connect(r'.\qehshub\mystock\main\cisdatabase.db') #/app/chem2reg/
 chemicals=warehouse.cursor()
 whichcasno=st.text_input('Enter CAS number', value='', max_chars=None, key=None, type='default', help='CAS num looks like 1336-21-6')#how to use the key？
 st.text('or')
