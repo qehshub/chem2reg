@@ -1,2 +1,2 @@
 # chem2reg
-search chemical CAS number. find it in which regulation
+search CAS number of chemicals. find it in which regulation
