@@ -39,9 +39,10 @@ class Query:
                 row+=1
                 leg_arr[row,:]=([leg_result_1[0],leg_result_1[1],leg_result_1[2]])
             return leg_arr
-
+st.set_page_config(page_title="A bridge from Chemical to Compliance",layout="wide")#2021-05-16
 st.title('化学品关联法规查询')
-warehouse=sqlite3.connect(r'.\qehshub\mystock\main\cisdatabase.db') #/app/chem2reg/
+warehouse=sqlite3.connect(r'cisdatabase.db')
+#warehouse=sqlite3.connect(r'.\qehshub\mystock\main\cisdatabase.db') #/app/chem2reg/
 st.secrets["password"]
 chemicals=warehouse.cursor()
 whichcasno=st.text_input('Enter CAS number', value='', max_chars=None, key=None, type='default', help='CAS num looks like 1336-21-6')#how to use the key？
