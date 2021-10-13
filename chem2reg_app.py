@@ -115,7 +115,7 @@ whichcasno=st.text_input('输入CAS号码 Enter CAS number', value='', max_chars
 st.text('or')
 st.info('&#x2139 批量查询 Bulk Query')
 uploaded_xlsx_file=st.file_uploader('上传文件格式为xlsx且第一列为CAS no',type=['xlsx'])
-
+st.text('The format of your uploaded file should be xlsx and CAS no must be in the first column')
 if whichcasno!='':
     if findillegalchar(whichcasno):
         st.write(whichcasno,'包含非法字符：',findillegalchar(whichcasno))
