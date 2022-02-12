@@ -110,10 +110,10 @@ st.set_page_config(page_title="A bridge to Chemical Compliance",layout="wide")#2
 st.title('化学品关联法规查询 Chemical in Which Regulation')
 warehouse=psycopg2.connect(**st.secrets["postgres"])
 chemicals=warehouse.cursor()
-st.info('&#x2139 单个查询 Single Query')
+st.info('单个查询 Single Query')
 whichcasno=st.text_input('输入CAS号码 Enter CAS number', value='', max_chars=None, key=None, type='default', help='CAS num looks like 1336-21-6')#how to use the key？
 st.text('or')
-st.info('&#x2139 批量查询 Bulk Query')
+st.info('批量查询 Bulk Query')
 st.info('The format of your uploaded file should be xlsx and CAS no must be in the first column')
 uploaded_xlsx_file=st.file_uploader('上传文件格式为xlsx且第一列为CAS no',type=['xlsx'])
 
