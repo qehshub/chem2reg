@@ -1,10 +1,5 @@
 #coding:utf-8
 #2022-02-12
-#New in the version 1.0:
-#remove bug:--illegal letter bug:missing letter in xlsx file
-#side bar
-#streamlit run c:/chemicals/chem2reg/aicompliance_1.0.py
-#psycopg2-2.8.6
 
 import streamlit as st
 import numpy as np
