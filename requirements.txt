@@ -1,4 +1,5 @@
-streamlit
+streamlit==1.7.0
 numpy
 psycopg2-binary==2.8.6
 openpyxl
+pikepdf==4.0.2
