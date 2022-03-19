@@ -114,8 +114,7 @@ def chemicalcompliance():
     
     st.title('化学品关联法规查询')
     st.title('Find Chemical in Which Regulation')
-    warehouse=psycopg2.connect(database="cisdatabase",user="postgres",password="yhblsqt",host="127.0.0.1",port="5432")
-    #warehouse=psycopg2.connect(**st.secrets["postgres"])
+    warehouse=psycopg2.connect(**st.secrets["postgres"])
     chemicals=warehouse.cursor()
     st.info('单个查询 Single Query')
     whichcasno=st.text_input('输入CAS号码 Enter CAS number', value='', max_chars=None, key=None, type='default', help='CAS num looks like 1336-21-6')#how to use the key？
