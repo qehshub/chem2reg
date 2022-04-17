@@ -3,3 +3,4 @@ numpy
 psycopg2-binary==2.8.6
 openpyxl
 pikepdf==4.0.2
+pyecharts
