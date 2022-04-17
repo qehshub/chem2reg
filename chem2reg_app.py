@@ -1,5 +1,5 @@
 #coding:utf-8
-#2022-02-12
+#since 2022-02-12
 
 import streamlit as st
 import numpy as np
@@ -7,6 +7,9 @@ import psycopg2
 import openpyxl
 import base64
 from pikepdf import Pdf
+from pyecharts import options as opts
+from pyecharts.charts import Map
+import streamlit.components.v1 as components
 
 def chemicalcompliance():
     def findillegalchar(casnum):
@@ -173,14 +176,80 @@ def unlock_file():
                 file_name="unlocked.pdf",
                 mime='application/octet-stream')
 
+def geo_map():
+    st.header('可视化数据地图（省份）生成工具')
+    st.subheader('Visualization Data Map(Province) Online Creator')
+    st.markdown('[下载XLSX模板文件 Download XLSX Template File](https://1drv.ms/x/s!Aiq7WqRlDWgOioE_Qtot2SmLASk7uw?e=DmmO7D)')#链接来自onedrive
+    uploaded_geodata_file=st.file_uploader('注：通过上传XLSX文件来设置地图的地名变量、标题',type=['xlsx'])
+    if uploaded_geodata_file is not None:
+        workbook_geodata=openpyxl.load_workbook(uploaded_geodata_file,read_only=True)
+        sheet_geodata=workbook_geodata.active
+        geodata_list=[]
+        mymaintitle=''
+        mysubtitle='Total：'
+        myseriestitle=''
+        docsum=0#各省发布文件数量总计
+        for rownum in range(1,35,1):#read data of each province
+            geodata_i=()#建立空元组
+            geodata_i=(sheet_geodata.cell(row=rownum,column=1).value,sheet_geodata.cell(row=rownum,column=2).value)
+            docsum=docsum+sheet_geodata.cell(row=rownum,column=2).value
+            geodata_list.append(geodata_i)
+        mymaintitle=sheet_geodata.cell(row=35,column=2).value
+        mysubtitle=f'{mysubtitle}{docsum}'
+        myseriestitle=sheet_geodata.cell(row=36,column=2).value
+        docnumber_china_map = (Map(init_opts=opts.InitOpts(
+            width='1024px',
+            height='768px',
+            page_title = "Data Map"))
+            .add(series_name=myseriestitle,
+            data_pair=geodata_list,
+            maptype="china",
+            is_roam=True,
+            is_map_symbol_show=False)
+            .set_global_opts(
+                title_opts=opts.TitleOpts(title=mymaintitle,subtitle=mysubtitle,pos_right='center'),
+                visualmap_opts=opts.VisualMapOpts(max_=100, is_piecewise=True),      
+                legend_opts=opts.LegendOpts(is_show=False)) 
+            .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+            .render_embed()
+            ) 
+        workbook_geodata.close()
+        #docnumber_china_map.render('中国新法规地图.html')
+        components.html(docnumber_china_map,width=1024, height=768)
+    else:
+        #*********************map(default)********************
+        uploaded_geodata_file= [('西藏',30),('新疆',39),('河南',45),('北京',22),('河北',10),('辽宁',12),('江西',6),('上海',69),('安徽',59),('江苏',16),('湖南',9),('浙江',36),('海南',2),('广东',22),('湖北',8),('黑龙江',11),('澳门',1),('陕西',11),('四川',7),('内蒙古',3),('重庆',3),('云南',6),('贵州',2),('吉林',3),('山西',12),('山东',11),('福建',4),('青海',1),('香港',57)]
+        docnum_source_date=f'2022年xx月x日-xx日期间共有xxxx个法规文件发布'
+        docnumber_china_map = (Map(init_opts=opts.InitOpts(
+            width='1024px',
+            height='768px',
+            page_title = "新法规地图"))
+            .add(series_name='新法规文件发布数量',
+            data_pair=uploaded_geodata_file,
+            maptype="china",
+            is_roam=True,
+            is_map_symbol_show=False)
+            .set_global_opts(
+                title_opts=opts.TitleOpts(title='中国各省新法规发布数量（Sample）',subtitle=docnum_source_date,pos_right='center'),
+                visualmap_opts=opts.VisualMapOpts(max_=100, is_piecewise=True),      
+                legend_opts=opts.LegendOpts(is_show=False)) 
+            .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+            .render_embed()
+            ) 
+        components.html(docnumber_china_map,width=1024, height=768)
+        #**********************************************************************    
+          
+            
 def sidebar():
-    whichtool=st.sidebar.radio("Choose Compliance Tool:",('Chemical → Regulation','Remove PDF Password'))
+    whichtool=st.sidebar.radio("Choose Compliance Tool:",('Online Map Creator','Chemical → Regulation','Remove PDF Password'))
 
     return whichtool
 
 def main():
     st.set_page_config(page_title="Compliance Bridge",layout="wide")#2021-05-16
     toolnum=sidebar()
+    if toolnum=='Online Map Creator':
+        geo_map()    
     if toolnum=='Chemical → Regulation':#Note:There are space between strings!
         chemicalcompliance()
     if toolnum=='Remove PDF Password':
@@ -214,7 +283,7 @@ def main():
         st.markdown('  ')
         st.markdown('  ')
         st.markdown('  ')
-        st.markdown('''Some copyrights may be reserved so''')
+        st.markdown('''	:copyright:Some copyrights may be reserved so''')#20220417add copyrignt symbol
         st.markdown('''Please contact  [Yenan Chen](mailto:bchen@nimonik.com)''')
     return None
 
