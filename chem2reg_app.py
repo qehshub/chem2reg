@@ -179,7 +179,7 @@ def unlock_file():
 def geo_map():
     st.header('可视化数据地图（省份）生成工具')
     st.subheader('Visualization Data Map(Province) Online Creator')
-    st.markdown('[下载XLSX模板文件 Download XLSX Template File](https://1drv.ms/x/s!Aiq7WqRlDWgOioE_Qtot2SmLASk7uw?e=DmmO7D)')#链接来自onedrive
+    st.markdown('[下载XLSX模板文件 Download XLSX Template File](https://mypsdata.s3.us-east-2.amazonaws.com/template.xlsx)')#链接来自onedrive
     uploaded_geodata_file=st.file_uploader('注：通过上传XLSX文件来设置地图的地名变量、标题',type=['xlsx'])
     if uploaded_geodata_file is not None:
         workbook_geodata=openpyxl.load_workbook(uploaded_geodata_file,read_only=True)
