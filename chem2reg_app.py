@@ -248,10 +248,11 @@ def sidebar():
 def main():
     st.set_page_config(page_title="Compliance Bridge",layout="wide")#2021-05-16
     toolnum=sidebar()
-    if toolnum=='Online Map Creator':
-        geo_map()    
+   
     if toolnum=='Chemical → Regulation':#Note:There are space between strings!
         chemicalcompliance()
+    if toolnum=='Online Map Creator':
+        geo_map()
     if toolnum=='Remove PDF Password':
         unlock_file() 
     with st.sidebar:
