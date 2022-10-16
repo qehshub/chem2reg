@@ -241,7 +241,7 @@ def geo_map():
           
             
 def sidebar():
-    whichtool=st.sidebar.radio("Choose Compliance Tool:",('Online Map Creator','Chemical → Regulation','Remove PDF Password'))
+    whichtool=st.sidebar.radio("Choose Compliance Tool:",('Chemical → Regulation','Online Map Creator','Remove PDF Password'))
 
     return whichtool
 
