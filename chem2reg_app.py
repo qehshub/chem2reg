@@ -112,8 +112,8 @@ def chemicalcompliance():
     
     st.title('化学品关联法规查询')
     st.title('Find Chemical in Which Regulation')
-    warehouse=psycopg2.connect(**st.secrets["postgres"])
-    chemicals=warehouse.cursor()
+    #warehouse=psycopg2.connect(**st.secrets["postgres"])
+    #chemicals=warehouse.cursor()
     st.markdown('**Bad_news!** Free Heroku Postgres service would be ended since 2022-11-28. Pls check [offical announcement of Heroku](https://blog.heroku.com/next-chapter).')
     st.info('单个查询 Single Query')
     whichcasno=st.text_input('输入CAS号码 Enter CAS number', value='', max_chars=None, key=None, type='default', help='CAS num looks like 1336-21-6')#how to use the key？
@@ -249,11 +249,10 @@ def sidebar():
 def main():
     st.set_page_config(page_title="Compliance Bridge",layout="wide")#2021-05-16
     toolnum=sidebar()
-   
+    if toolnum=='Online Map Creator':
+        geo_map()   
     if toolnum=='Chemical → Regulation':#Note:There are space between strings!
         chemicalcompliance()
-    if toolnum=='Online Map Creator':
-        geo_map()
     if toolnum=='Remove PDF Password':
         unlock_file() 
     with st.sidebar:
