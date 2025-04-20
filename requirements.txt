@@ -1,9 +1,9 @@
-streamlit==1.12.0
+streamlit==1.44.0
 numpy
 psycopg2-binary==2.8.6
 openpyxl
 pikepdf==4.0.2
-pyecharts==1.9.1
+pyecharts==2.0.8
 pyecharts-jupyter-installer==0.0.3
 lml==0.1.0
 echarts-china-provinces-pypkg==0.0.3
