@@ -1,6 +1,6 @@
 streamlit==1.44.0
 numpy
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.10
 openpyxl
 pikepdf==4.0.2
 pyecharts==2.0.8
